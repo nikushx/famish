@@ -18,6 +18,7 @@ export type WeekInterval = {
 export type Deal = {
   title: string;
   description: string;
+  url?:string;
   times: Array<WeekInterval>;
   // menuItems: Array<{
   // 	name: string;
@@ -29,6 +30,7 @@ export type Deals = Array<Deal>;
 
 export type Place = {
   name: string;
+  url?: string;
   deals: Deals;
 };
 

@@ -58,7 +58,7 @@ const PlaceCardGradient = [
   "#F49919",
   "#f5af19"
 ];
-console.log(process.env)
+
 const getColorFromGradientArray = (arrayOfColors: string[], index: number) => {
   let adjustedIndex;
 

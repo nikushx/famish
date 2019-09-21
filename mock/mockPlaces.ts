@@ -26,9 +26,13 @@ const createWeekdayInterval = (start: HourMinute, end: HourMinute) => {
 };
 
 // every day deal
-const createDailyInterval = (start: HourMinute, end: HourMinute) => {
+const createDailyInterval = (start: HourMinute, end: HourMinute, skipDays:number[] = []) => {
 	const weekdayIntervals: Array<WeekInterval> = [];
 	for (let i = 1; i < 8; i++) {
+		if ( skipDays.includes(i) ) {
+			continue;
+		}
+
 		const startPoint: WeekPoint = {
 			...start,
 			weekday: i,
@@ -310,6 +314,7 @@ const mockPlaces: Places = [
 	},
 	{
 		name: `Mario's Shadyside`,
+		url: 'https://mariospgh.com/east-side/',
 		deals: [
 			{
 				title: 'Wednesday Burger Special',
@@ -327,6 +332,22 @@ const mockPlaces: Places = [
 							minute: 0
 						}
 					}
+				]
+			},
+			{
+				title: 'Happy Hour',
+				description: '$5 Food Specials',
+				times: [
+					...createWeekdayInterval(
+						{
+							hour: 17,
+							minute: 0
+						},
+						{
+							hour: 19,
+							minute: 0
+						}
+					)
 				]
 			}
 		]
@@ -697,16 +718,296 @@ const mockPlaces: Places = [
 						}
 					}
 				]
+			}
+		]
+	},
+	{
+		name: `Hemingway's Cafe`,
+		url: 'https://www.hemingwayspgh.com/',
+		deals: [
+			{
+				title: 'Food Special',
+				description: 'Most Food Items $5.50',
+				times: [
+					...createDailyInterval(
+						{
+							hour: 11,
+							minute: 0
+						},
+						{
+							hour: 12,
+							minute: 0
+						},
+						[7]
+					),
+					...createDailyInterval(
+						{
+							hour: 14,
+							minute: 0
+						},
+						{
+							hour: 16,
+							minute: 0
+						},
+						[7]
+					),
+					...createDailyInterval(
+						{
+							hour: 21,
+							minute: 0
+						},
+						{
+							hour: 23,
+							minute: 59
+						},
+						[7]
+					)
+				]
 			},
 			{
-				title: '',
-				description: '',
+				title: 'Shot Pitcher Special',
+				description: '$4 Shot Pitcher of the Day',
 				times: [
-					
+					...createDailyInterval(
+						{
+							hour: 22,
+							minute: 0
+						},
+						{
+							hour: 23,
+							minute: 59
+						},
+						[7]
+					)
 				]
 			}
 		]
 	},
+	// TODO: Add thirsty scholar, find out their deals
+	{
+		name: `Mario's Oakland`,
+		url: 'https://mariospgh.com/oakland/',
+		deals: [
+			{
+				title: 'Happy Hour',
+				description: '$5 Food Specials',
+				times: [
+					...createWeekdayInterval(
+						{
+							hour: 17,
+							minute: 0
+						},
+						{
+							hour: 19,
+							minute: 0
+						}
+					)
+				]
+			}
+		]
+	},
+	{
+		name: 'Fuel and Fuddle',
+		deals: [
+			// TODO: find out if this happy hour is weekdays only or all days
+			{
+				title: 'Happy Hour',
+				description: '1/2 Off All Drafts',
+				times: [
+					...createWeekdayInterval(
+						{
+							hour: 16,
+							minute: 0
+						},
+						{
+							hour: 18,
+							minute: 0
+						}
+					)
+				]
+			},
+			{
+				title: 'Late Night Food Special',
+				description: 'Discounted food until 1am',
+				times: [
+					...createDailyInterval(
+						{
+							hour: 23,
+							minute: 0
+						},
+						// TODO: make this go to 1am once algorithm is fixed
+						{
+							hour: 23,
+							minute: 59
+						}
+					)
+				]
+			}
+		]
+	},
+	{
+		name: `Mad Mex Oakland`,
+		deals: [
+			{
+				title: 'Happy Hora',
+				description: 'Half off all drafts and wings. House Margarita special: $7 Big Azz, $5 16oz, $3 12oz',
+				times: [
+					...createWeekdayInterval(
+						{
+							hour: 16,
+							minute: 30
+						},
+						{
+							hour: 18,
+							minute: 30
+						}
+					)
+				]
+			},
+			{
+				title: 'Late Mex Margs',
+				description: '$7 Big Azz Margs',
+				times: [
+					...createDailyInterval(
+						{
+							hour: 22,
+							minute: 0
+						},
+						{
+							hour: 23,
+							minute: 59
+						}
+					)
+				]
+			},
+			{
+				title: 'Late Mex Food',
+				description: 'Half Off Food (excluding tacos, chimi, dessert)',
+				times: [
+					...createDailyInterval(
+						{
+							hour: 23,
+							minute: 0
+						},
+						// TODO: make this go to 1 am!!!! 
+						{
+							hour: 23,
+							minute: 59
+						}
+					)
+				]
+			},
+			{
+				title: 'Student Halfsies',
+				description: 'Half Off Food (excluding tacos, chimi, dessert)',
+				times: [
+					...createDailyInterval(
+						{
+							hour: 14,
+							minute: 0
+						},
+						// TODO: make this go to 1 am!!!! 
+						{
+							hour: 16,
+							minute: 0
+						},
+						[5,6,7]
+					)
+				]
+			},
+			{
+				title: 'Lunch Specials',
+				description: 'Cheap eats, see lunch specials menu',
+				url: 'http://madmex.com/static/menus/Mad_Mex_lunch_specials.pdf',
+				times: [
+					...createWeekdayInterval(
+						{
+							hour: 11,
+							minute: 0
+						},
+						// TODO: make this go to 1 am!!!! 
+						{
+							hour: 16,
+							minute: 0
+						}
+					)
+				]
+			},
+		]
+	},
+	{
+		name: `Mad Mex Shadyside`,
+		deals: [
+			{
+				title: 'Happy Hora',
+				description: 'Half off all drafts and wings. House Margarita special: $7 Big Azz, $5 16oz, $3 12oz',
+				times: [
+					...createWeekdayInterval(
+						{
+							hour: 16,
+							minute: 30
+						},
+						{
+							hour: 18,
+							minute: 30
+						}
+					)
+				]
+			},
+			{
+				title: 'Late Mex Margs',
+				description: '$7 Big Azz Margs',
+				times: [
+					...createDailyInterval(
+						{
+							hour: 22,
+							minute: 0
+						},
+						{
+							hour: 23,
+							minute: 59
+						}
+					)
+				]
+			},
+			{
+				title: 'Student Halfsies',
+				description: 'Half Off Food (excluding tacos, chimi, dessert)',
+				times: [
+					...createDailyInterval(
+						{
+							hour: 14,
+							minute: 0
+						},
+						// TODO: make this go to 1 am!!!! 
+						{
+							hour: 16,
+							minute: 0
+						},
+						[5,6,7]
+					)
+				]
+			},
+			{
+				title: 'Lunch Specials',
+				description: 'Cheap eats, see lunch specials menu',
+				url: 'http://madmex.com/static/menus/Mad_Mex_lunch_specials.pdf',
+				times: [
+					...createWeekdayInterval(
+						{
+							hour: 11,
+							minute: 0
+						},
+						// TODO: make this go to 1 am!!!! 
+						{
+							hour: 16,
+							minute: 0
+						}
+					)
+				]
+			},
+		]
+	}
 ];
 
 export default mockPlaces;
