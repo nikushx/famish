@@ -18,7 +18,8 @@ export type WeekInterval = {
 export type Deal = {
   title: string;
   description: string;
-  url?:string;
+  url?: string;
+  studentOnly?: boolean;
   times: Array<WeekInterval>;
   // menuItems: Array<{
   // 	name: string;
@@ -32,6 +33,15 @@ export type Place = {
   name: string;
   url?: string;
   deals: Deals;
+  nominations?: Nomination[];
+};
+
+// Nominations a Place can have (ex. sober means sober person friendly (Mocktails), LGBT-friendly, etc.)
+export type NominationType = "lgbt" | "sober"|"sustainable-pgh";
+
+export type Nomination = {
+  type: NominationType;
+  text: string;
 };
 
 export type Places = Array<Place>;
