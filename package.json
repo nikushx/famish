@@ -14,7 +14,7 @@
     "@types/node": "^12.7.2",
     "@types/react": "^16.9.2",
     "@zeit/next-sass": "^1.0.1",
-    "immer": "^3.2.0",
+    "immer": "^9.0.6",
     "lodash": "^4.17.15",
     "luxon": "^1.17.2",
     "next": "9.0.5",
